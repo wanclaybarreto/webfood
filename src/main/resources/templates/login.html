@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+    <body>
+        <div id="autenticacao" layout:fragment="content">
+            <div class="conteiner">
+                <div class="autenticacaoIN">
+                    <div class="autenticacaoPainelForm">
+                        <img th:src="@{/icons/icon-user.png}" alt="Usuário" />
+                        <h1>Autenticação</h1>
+
+                        <form method="POST" th:action="@{/login}">
+                            <input type="text" name="username" placeholder="E-mail..." />
+                            <input type="password" name="password" placeholder="Senha..." />
+                            <input type="submit" value="Entrar" />
+                        </form>
+                        <br/>
+
+                        <div class="mensagemDeErro" th:if="${msg != null}">
+                        	<span th:text="${msg}"></span>
+                        </div>
+                        <br/>
+                        
+                        <a class="button" th:href="@{/public/cliente/new}">Criar conta de Cliente</a>
+                        
+                        <a class="button" th:href="@{/public/restaurante/new}">Criar conta de Restaurante</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

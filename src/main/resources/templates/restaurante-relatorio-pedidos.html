@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/restaurante/home}">
+	<body>
+		<div id="restauranteRelatorioItens" layout:fragment="content">
+			<div class="conteiner centralizarConteudo">
+				<div>
+					<h1>Relatório de Pedidos</h1>
+					<form method="get" th:object="${relatorioPedidoFilter}" th:action="@{/restaurante/relatorio/pedidos}">
+						<fieldset>
+							<legend>Filtros</legend>
+
+							<label for="pedidoId">Pedido:</label>
+							<input type="number" id="pedidoId" th:field="*{pedidoId}"><br/>
+
+							<label for="dataInicial">Início:</label>
+							<input type="date" id="dataInicial" th:field="*{dataInicial}"><br/>
+
+							<label for="dataFinal">Fim:</label>
+							<input type="date" id="dataFinal" th:field="*{dataFinal}"><br/>
+
+							<input type="submit" value="Buscar">
+						</fieldset>
+					</form>
+				</div>
+				<br><br>
+
+				<div class="mensagemDeErro" th:if="${msg} != null">
+					<span th:text="${msg}"></span>
+					<br/><br/>
+				</div>
+
+				<div th:if="${pedidos.size() > 0}">
+					<table>
+						<tr>
+							<th>Pedido</th>
+							<th>Data</th>
+							<th>Nome</th>
+							<th>Endereço</th>
+							<th>Valor</th>
+						</tr>
+						<tr th:each="pedido : ${pedidos}">
+							<td>
+								<button th:text="${pedido.formattedId}"
+										th:onclick="'location.href=\'' + @{/restaurante/pedido} + '?pedidoId=' + ${pedido.id} + '\''">
+								</button>
+							</td>
+							<td th:text="${#temporals.format(pedido.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+							<td th:text="${pedido.cliente.nome}"></td>
+							<td th:text="${pedido.cliente.formattedCep}"></td>
+							<td th:text="${#numbers.formatCurrency(pedido.total)}"></td>
+						</tr>
+					</table>
+				</div>
+				<span th:if="${pedidos.size() < 1}">Nenhum pedido foi encontrado!</span>
+				<br><br>
+
+				<a class="button" th:href="@{/restaurante/home}">Voltar</a>
+			</div>
+		</div>
+	</body>
+</html>

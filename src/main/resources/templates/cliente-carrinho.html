@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
+    <body>
+		<div id="clienteCarrinho" layout:fragment="content">
+            <div class="conteiner centralizarConteudo">
+                <div class="mensagemDeErro" th:if="${msg} != null">
+                    <span th:text="${msg}"></span>
+                    <br/><br/>
+                </div>
+                
+                <!-- ==> Título do pedido -->
+                <div class="divTituloPedido">
+                    <h1>SEU PEDIDO</h1>
+                    <img th:if="${carrinho.restaurante} != null" th:src="@{/images/logotipo/} + ${carrinho.restaurante.logotipo}" />
+                </div>
+                <br/><br/>
+                <!-- Título do pedido <== -->
+
+                <!-- ==> Itens do pedido -->
+                <div th:if="${carrinho.isEmpty()}">
+					Sem itens no carrinho! <br/><br/><br/><br/>
+				</div>
+                
+                <div th:each="item : ${carrinho.itens}" class="divItemPedido">
+                    <span th:text="${item.itemCardapio.nome}" class="titulo"></span>
+                    <span th:text="${item.quantidade} + ' unidade(s)'"></span>
+                    <span th:text="${item.observacoes.isEmpty()} ? '(sem observações)' : '(' + ${item.observacoes} + ')'"></span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(item.calcPrecoTotal(), 1, 'POINT', 2, 'COMMA')}"></span>
+                    <br/>
+
+                    <button th:onclick="'location.href=\'' + @{/cliente/carrinho/remover} + '?itemCardapioId=' +  ${item.itemCardapio.id} + '\''">Remover</button>
+                </div>
+                <!-- Itens do pedido <== -->
+
+                <!-- ==> Detalhes do pedido -->
+                <div th:if="!${carrinho.isEmpty()}" class="centralizarConteudo">
+                    <span>Taxa de entrega:</span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(carrinho.restaurante.taxaEntrega, 1, 'POINT', 2, 'COMMA')}"></span>
+                    
+                    <br/><br/>
+                </div>
+
+                <div th:if="!${carrinho.isEmpty()}" class="centralizarConteudo">
+                    <span>Total:</span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(carrinho.calcPrecoTotal(true), 1, 'POINT', 2, 'COMMA')}"></span>
+                    
+                    <br/><br/>
+                </div>
+                <!-- Detalhes do pedido <== -->
+				
+				
+				<form th:if="!${carrinho.isEmpty()}" method="POST" th:action="@{/cliente/pagamento/pagar}">
+					<!-- ==> Pagamento do pedido -->
+	                <div class="centralizarConteudo">
+	                    <span>Cartão de Crédito:</span>
+	                    <input type="text" name="numCartaoCredito" />
+	                	<br/>
+	                </div>
+	                <!-- Pagamento do pedido <== -->
+	
+	                <input type="submit" value="Enviar pedido" />
+				</form>
+				<br/>
+                
+                
+                <a class="button" th:href="@{/cliente/search} + '?searchType=Texto&categoriaId=&texto='">Voltar</a>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
+    <body>
+        <div id="clienteHome" layout:fragment="content">
+            <div class="conteiner centralizarConteudo">
+                <!-- ==> Busca -->
+	            <form id="formSearch" method="GET" th:object="${searchFilter}" th:action="@{/cliente/search}">
+	                
+	                <input data-name="search-type" type="hidden" th:field="*{searchType}" />
+	                <input data-name="categoria-id" type="hidden" th:field="*{categoriaId}" />
+	                
+	                <div class="divBusca">
+	                    <h1>É hora de matar a fome!</h1>
+						
+						<div>
+							<input type="text" th:field="*{texto}" placeholder="Buscar por..." />
+	                    	<input type="button" value="Buscar" onclick="searchRest(null);">
+						</div>
+	                </div>
+	                
+	
+	                <!-- ==> Categorias -->
+	                <div class="divCategoriasComidaGeral">
+	                    <div class="divCategoriasComidaOpcao" th:each="categ : ${categorias}">
+	                        <a href="#" th:onclick="'searchRest(' + ${categ.id} + ');'">
+	                            <img th:src="@{/images/categoria/} + ${categ.imagem}" /><br/>
+	                            <span th:text="${categ.nome}"></span>
+	                        </a>
+	                    </div>
+	                </div>
+	                <!-- Categorias <== -->
+	                
+	            </form>
+                <!-- Busca <== -->
+
+                <!-- ==> Pedidos -->
+                <div class="centralizarConteudo">
+                    <h2>Últimos pedidos</h2>
+
+                    <button th:each="pedido : ${pedidos}" th:text="${pedido.formattedId} + ' ' + ${pedido.restaurante.nome}" th:onclick="'location.href=\'' + @{/cliente/pedido/view} + '?pedidoId=' + ${pedido.id} + '\''"></button>
+                    
+                    <span th:if="${pedidos.size() == 0}"> Você ainda não realizou nehum pedido. Faça o primeiro!! </span>
+                </div>
+                <!-- Pedidos <== -->
+
+                <!-- ==> Funcionalidades -->
+                <h2>Conta</h2>
+                <a class="button" th:href="@{/cliente/edit}">Meus dados</a>
+                <a class="button" th:href="@{/logout}">Sair</a>
+                <!-- Funcionalidades <== -->
+            </div>
+        </div>
+    </body>
+</html>

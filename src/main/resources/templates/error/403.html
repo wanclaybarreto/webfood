@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+    <body>
+        <div id="error" layout:fragment="content">
+            <div class="conteiner">
+                <div class="errorIN">
+                    <div>
+                        <img th:src="@{/icons/icon-error.png}" alt="Erro!" />
+                    </div>
+                    <br/><br/>
+                    <div class="mensagemDeErro">
+                        Acesso não autorizado!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

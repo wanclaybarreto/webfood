@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/restaurante/home}">
+	<body>
+		<div id="restaurantePedido" layout:fragment="content">
+			<div class="conteiner centralizarConteudo">
+				<div class="centralizarConteudo">
+					<div class="divTituloPedido">
+						<h1>PEDIDO</h1>
+					</div>
+
+					<div class="mensagemDeSucesso" th:if="${msg != null}">
+						<span th:text="${msg}"></span><br/>
+					</div>
+					<br/>
+
+					<div class="statusPedido">
+						<span th:text="'Status: ' + ${pedido.status.descricao}" th:disabled="${pedido.status.ultimo}"></span>
+						<br/>
+					</div>
+
+					<form th:if="${!pedido.status.ultimo}" method="post" th:action="@{/restaurante/pedido/proximoStatus}">
+						<input type="hidden" name="pedidoId" th:value="${pedido.id}" /><br/>
+						<input type="submit" value="AVANÇAR O STATUS DO PEDIDO" />
+					</form>
+				</div>
+				<br/><br/>
+
+				<div class="centralizarConteudo">
+					<span th:text="${#temporals.format(pedido.dataHora, 'dd/MM/yyyy HH:mm')}"></span>
+					<span th:text="${pedido.cliente.nome}"></span>
+				</div>
+				<br/><br/>
+
+				<div class="divItemPedido" th:each="item : ${pedido.itens}">
+					<span class="titulo" th:text="${item.itemCardapio.nome}"></span><br/>
+					<span th:text="'Quantidade: ' + ${item.quantidade}"></span><br/>
+					<span th:text="${item.observacoes}"></span><br/>
+					<span th:text="${#numbers.formatCurrency(item.itemCardapio.preco)}"></span>
+					<br/>
+				</div>
+				<br/>
+
+				<div class="centralizarConteudo">
+					<span>Taxa de entrega</span>
+					<span th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
+				</div>
+				<br/>
+
+				<div class="centralizarConteudo">
+					<span>Total</span>
+					<span th:text="${#numbers.formatCurrency(pedido.total)}"></span>
+				</div>
+				<br/>
+
+
+				<a class="button" th:href="@{/restaurante/home}">Voltar</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta lang="pt-br" />
+        <meta id="viewport" name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <title>Web Food</title>
+        <link rel="icon" type="image/png" th:href="@{/icons/icon-logo.png}" />
+
+        <!-- FONTE UBUNTU: -->
+	    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet" />
+
+        <!-- CSS: -->
+	    <link rel="stylesheet" type="text/css" th:href="@{/css/normalize.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    </head>
+
+    <body>
+        <!-- ==> Cabeçalho -->
+        <header>
+            <div class="conteiner">
+                <div class="divLogotipoHeader">
+                    <a th:href="${link} == null ? @{/} : ${link}">
+                        <img th:src="@{/images/logo-small.png}" alt="Web Food" /> <span>Web Food</span>
+                    </a>
+                </div>
+                
+                <div class="divUsuarioHeader" th:if="${#authentication.principal != 'anonymousUser'}">
+                    <div class="divUsuarioLogado">
+                        <span th:text="'Olá, ' + ${#authentication.principal.usuario.nome} + '!'" ></span>
+                    </div>
+
+                    <div th:if="${session.carrinho != null}" class="divImgIconeCarrinho">
+                        <a th:href="@{/cliente/carrinho/visualizar}">
+                        	<img th:src="@{/icons/icon-cart.png}" alt="Carrinho" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Cabeçalho <== -->
+
+
+        <!-- ==> Conteúdo -->
+        <div layout:fragment="content"></div>
+		<!-- Conteúdo <== -->
+
+        <!-- ==> Roda-pé -->
+        <!-- Roda-pé <== -->
+        
+        <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,553 @@
+/* --> VARIÁVEIS */
+:root {
+    --color-prim-1: #F09262;
+    --color-prim-2: #ED6119;
+    --color-prim-3: #BA4C14;
+    --color-prim-4: #6E2D0C;
+    --color-sec-1: #865137;
+    --color-sec-2: #3B1806;
+}
+/* VARIÁVEIS <-- */
+
+
+
+/* --> ATRIBUIÃ‡Ã•ES GERAIS */
+* {
+    font-family: 'Ubuntu', 'Arial', 'Liberation Sans';
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0px;
+    margin-bottom: 20px;
+    color: var(--color-prim-2);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+button {
+    margin: 5px 0;
+    padding: 10px 15px;
+    background-color: var(--color-prim-4);
+    border: none;
+    border-radius: 30px;
+    color: #FFF;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-sec-1);
+}
+
+button:active {
+    background-color: var(--color-sec-2);
+}
+
+button.btnSelecionado {
+    background-color: var(--color-prim-3);
+}
+
+a.button {
+    margin: 5px 0;
+    padding: 10px 15px;
+    background-color: var(--color-prim-4);
+    border: none;
+    border-radius: 30px;
+    color: #FFF;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+a.button:hover {
+    background-color: var(--color-sec-1);
+}
+
+a.button:active {
+    background-color: var(--color-sec-2);
+}
+
+a.button.btnSelecionado {
+    background-color: var(--color-prim-3);
+}
+
+input:not([type='submit']) {
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 20px;
+    outline: 0;
+}
+
+input[type='submit'], input[type='button'] {
+    padding: 5px 10px;
+    background-color: var(--color-prim-2);
+    border: none;
+    border-radius: 20px;
+    color: #FFF;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+input[type='submit']:hover, input[type='button']:hover {
+    background-color: var(--color-prim-1);
+}
+
+input[type='submit']:active, input[type='button']:active {
+    background-color: var(--color-prim-3);
+}
+
+fieldset {
+    width: 310px;
+    margin: auto;
+    padding: 0;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+fieldset legend {
+    margin: auto;
+    padding: 5px 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+fieldset .catogoriasItensCardapio {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	align-content: center;
+}
+
+fieldset .catogoriasItensCardapio button {
+	margin: 5px 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input[type='file'] {
+    background-color: initial;
+}
+
+.divFieldForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+label {
+    margin: 5px 0;
+}
+
+textarea {
+    height: 150px;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 5px;
+    outline: 0;
+    resize: none;
+}
+
+select {
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: #CCC;
+    border-radius: 5px;
+    outline: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: auto;
+    cursor: default;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--color-prim-2);
+    color: white;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even) {background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+.conteiner {
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+    padding: 0 10px;
+}
+
+.titulo {
+	text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+div:not([id='autenticacao']) .conteiner {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.centralizarConteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mensagemDeErro {
+	margin-top: 3px;
+    color: #F00;
+    font-weight: 500;
+    text-align: center;
+}
+
+.mensagemDeSucesso {
+    color: rgb(23, 185, 23);
+    font-weight: 500;
+    text-align: center;
+}
+
+.inputErro {
+    border: 2px solid rgba(255, 0, 0, 0.5) !important;
+}
+
+header {
+    background-color: var(--color-prim-2);
+}
+
+header > div {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .divLogotipoHeader a {
+    width: 215px;
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    padding: 5px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #000;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+header .divLogotipoHeader img {
+    height: 40px;
+}
+
+header .divUsuarioHeader {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header .divUsuarioHeader .divUsuarioLogado {
+    font-size: 16px;
+    color: #FFF;
+}
+
+header .divUsuarioHeader .divImgIconeCarrinho {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-prim-1);
+    padding: 5px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+header .divUsuarioHeader .divImgIconeCarrinho  img {
+    height: 40px;
+}
+/* ATRIBUIÃ‡Ã•ES GERAIS <-- */
+
+
+
+/* --> INDEX */
+#autenticacao {
+    background-image: url("../images/bg-index.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+#autenticacao .autenticacaoIN {
+    height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+}
+
+#autenticacao .autenticacaoPainelForm {
+    width: 270px;
+    margin: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #000;
+}
+
+#autenticacao .autenticacaoPainelForm img {
+    width: 100px;
+}
+
+#autenticacao .autenticacaoPainelForm form {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#autenticacao .autenticacaoPainelForm button {
+    font-size: 12px;
+}
+/* INDEX <-- */
+
+
+
+/* --> ERROR */
+#error .errorIN {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* ERROR <-- */
+
+
+
+/*  --> CLIENTE HOME e CLIENTE BUSCA */
+.divBusca > div {
+	width: 300px;
+	height: 60px;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.divCategoriasComidaGeral {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    font-size: 16px;
+}
+
+.divCategoriasComidaOpcao {
+    min-width: 112px;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #000;
+}
+
+.divCategoriasComidaOpcao a:hover {
+    background-color: var(--color-prim-1);
+    color: #FFF;
+}
+
+.divCategoriasComidaOpcao a:active {
+    background-color: var(--color-prim-3);
+    color: #FFF;
+}
+
+.divCategoriasComidaOpcao a {
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--color-prim-2);
+}
+
+.divCategoriasComidaOpcao img {
+    height: 60px;
+}
+
+.divFiltrosResultados {
+    margin-top: 40px;
+}
+
+.divResultados {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.divItemResultados {
+    width: 310px;
+}
+
+.divItemResultados a {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-prim-1);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #000;
+}
+
+.divItemResultados img {
+    height: 130px;
+}
+
+.imgCursorClick img {
+    height: 32px;
+    margin-top: 20px;
+}
+/*  CLIENTE HOME e CLIENTE BUSCA <-- */
+
+
+
+/* --> CLIENTE PEDIDO e RESTAURANTE PEDIDO */
+.divTituloPedido img {
+    width: 250px;
+}
+
+.statusPedido {
+	margin-top: 3px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.divItemPedido {
+	width: 300px;
+	margin-bottom: 20px;
+    padding: 15px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-prim-1);
+    border-radius: 10px;
+    text-align: center;
+}
+/* CLIENTE PEDIDO e RESTAURANTE PEDIDO <-- */
+
+
+
+/* --> CLIENTE RESTAURANTE */
+.divRestauranteSelecionado {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-prim-3);
+    border-radius: 10px;
+    color: #FFF;
+}
+
+.divRestauranteSelecionado img {
+    width: 250px;
+}
+
+.divRestauranteSelecionado :nth-child(3) {
+	font-weight: 500;
+}
+
+.divItemOpcoesDeComida {
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #DDD;
+    box-shadow: 0 0 3px #000;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.divItemOpcoesDeComida img {
+    width: 150px;
+    border: 5px solid var(--color-prim-2);
+    border-radius: 20px;
+}
+
+.divOpcoesDeComida {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	align-content: center;
+}
+
+.divItemOpcoesDeComida {
+    width: 300px;
+    margin: 0 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.divOpcoesDeComida .semItens {
+	margin-bottom: 20px;
+}
+/* CLIENTE RESTAURANTE <-- */
+
+
+/* --> RESTAURANTE COMIDAS */
+.itemComida {
+    width: 300px;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-prim-1);
+    border-radius: 10px;
+    text-align: center;
+}
+/* RESTAURANTE COMIDAS <-- */
+
+
+
+/* --> RESTAURANTE RELATÓRIO ITENS */
+#restauranteRelatorioItens #itemId {
+    width: 250px;
+}
+/* RESTAURANTE RELATÓRIO ITENS <-- */

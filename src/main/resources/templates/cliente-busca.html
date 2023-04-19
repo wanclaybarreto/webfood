@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
+    <body>
+        <div id="clienteBusca" layout:fragment="content">
+            <div class="conteiner centralizarConteudo">
+                <!-- ==> Busca -->
+	            <form id="formSearch" method="GET" th:object="${searchFilter}" th:action="@{/cliente/search}">
+	                
+	                <input data-name="search-type" type="hidden" th:field="*{searchType}" />
+	                <input data-name="categoria-id" type="hidden" th:field="*{categoriaId}" />
+	                
+	                <div class="divBusca">
+	                    <h1>É hora de matar a fome!</h1>
+						
+						<div>
+							<input type="text" th:field="*{texto}" placeholder="Buscar por..." />
+	                    	<input type="button" value="Buscar" onclick="searchRest(null);">
+						</div>
+	                </div>
+	                
+	
+	                <!-- ==> Categorias -->
+	                <div class="divCategoriasComidaGeral">
+	                    <div class="divCategoriasComidaOpcao" th:each="categ : ${categorias}">
+	                        <a href="#" th:onclick="'searchRest(' + ${categ.id} + ');'">
+	                            <img th:src="@{/images/categoria/} + ${categ.imagem}" /><br/>
+	                            <span th:text="${categ.nome}"></span>
+	                        </a>
+	                    </div>
+	                </div>
+	                <!-- Categorias <== -->
+	                
+	                
+	                <div class="divFiltrosResultados">
+	                    <h1>Resultados</h1>
+	        
+	                    <fieldset>
+	                        <legend>Filtros</legend>
+	                        
+	                        <div>
+	                            <button th:class="*{entregaGratis} ? 'btnSelecionado' : ''" onclick="setCmd('EntregaGratis');">Entrega grátis</button>
+	                        </div>
+	        
+	                        <div>
+	                            <button th:class="*{order.name()} == 'Taxa' and  *{asc}  ? 'btnSelecionado' : ''" onclick="setCmd('MenorTaxa');">Menor taxa</button>
+	                            <button th:class="*{order.name()} == 'Taxa' and !*{asc}  ? 'btnSelecionado' : ''" onclick="setCmd('MaiorTaxa');">Maior taxa</button>
+	                        </div>
+	                        
+	                        <div>
+	                        	<button th:class="*{order.name()} == 'Tempo' and  *{asc}  ? 'btnSelecionado' : ''" onclick="setCmd('MenorTempo');">Menor tempo</button>
+	                            <button th:class="*{order.name()} == 'Tempo' and !*{asc}  ? 'btnSelecionado' : ''" onclick="setCmd('MaiorTempo');">Maior tempo</button>
+	                        </div>
+	                        
+	                        <input type="hidden" data-name="order" th:field="*{order}" />
+	                        <input type="hidden" data-name="asc" th:field="*{asc}" />
+	                        <input type="hidden" data-name="entrega-gratis" th:field="*{entregaGratis}" />
+	                        
+	                        <input type="hidden" name="cmd" />
+	                    </fieldset>
+	                </div>
+                
+                </form>
+                <!-- Busca <== -->
+                
+        		
+        		<!-- ==> Resultados -->
+                <div class="divResultados">
+                    <div class="divItemResultados" th:each="restaurante : ${restaurantes}">
+                        <a th:href="@{/cliente/restaurante} + '?restauranteId=' + ${restaurante.id}">
+                            <img th:src="@{/images/logotipo/} + ${restaurante.logotipo}" /><br/>
+                            <span class="titulo" th:text="${restaurante.nome}"></span>
+                            <span th:text="${restaurante.categoriasAsText}" style="color: #FFF;"></span>
+                            <span th:text="'Tempo médio de entrega: ' + ${restaurante.tempoEntregaBase} + 'min'"></span>
+                            <span th:text="'Taxa de entrega: R$' + ${#numbers.formatDecimal(restaurante.taxaEntrega, 1, 'POINT', 2, 'COMMA')}"></span>
+                            <div class="imgCursorClick"> <img th:src="@{/icons/icon-toclick.png}"> </div>
+                        </a>
+                        <br/><br/>
+                    </div>
+                    
+                    <div th:if="${restaurantes.size() == 0}">
+                    	<span>Nenhum restaurante foi encontrado!</span>
+                    	<br/><br/>
+                    </div>
+                </div>
+                <!-- Resultados <== -->
+        
+                <a class="button" th:href="@{/cliente/home}">Voltar</a>
+            </div>
+        </div>
+
+        <!-- ==> Roda-pé -->
+        <!-- Roda-pé <== -->
+    </body>
+</html>

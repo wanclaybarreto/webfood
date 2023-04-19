@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
+    <body>
+		<div id="clienteRestaurante" layout:fragment="content">
+            <div class="conteiner centralizarConteudo">
+                <!-- ==> Restaurante selecionado -->
+                <div class="divRestauranteSelecionado">
+                    <img th:src="@{/images/logotipo/} + ${restaurante.logotipo}" /><br/>
+                    <span th:text="${restaurante.nome}"></span>
+                    <span th:text="${restaurante.categoriasAsText}"></span>
+                    <span th:text="'Tempo médio de entrega: ' + ${restaurante.tempoEntregaBase} + 'min'"></span>
+                    <span th:text="'Taxa de entrega: R$' + ${#numbers.formatDecimal(restaurante.taxaEntrega, 1, 'POINT', 2, 'COMMA')}"></span>
+                </div>
+                <br/><br/>
+                <!-- Restaurante selecionado <== -->
+
+                <!-- ==> Opções de comida -->
+                <div>
+					<form id="formFiltroItensCardapio" method="GET" th:action="@{/cliente/restaurante}">
+	                    <fieldset>
+	                        <legend>Filtros</legend>
+	                        
+	                        <input type="hidden" name="categoria" />
+	                        <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
+	                        
+							<div class="catogoriasItensCardapio">
+								<button th:if="${withFilterCategorias}" onclick="filterItensCardapio(null);">X</button>
+								<button th:each="categoria : ${categorias}" th:class="${categoriaSelected} == ${categoria} ? 'btnSelecionado' : ''" th:text="${categoria}" th:data-categoria="${categoria}" onclick="filterItensCardapio(this.getAttribute('data-categoria'));"></button>
+							</div>
+	                    </fieldset>
+                    </form>
+                </div>
+                <br/><br/>
+
+                <div>
+                    <h1>Destaques</h1>
+                </div>
+
+                <div class="divOpcoesDeComida">
+                    <div class="divItemOpcoesDeComida" th:each="itemCardapioDestaque : ${itensCardapioDestaque}">
+                        <img th:src="@{/images/itemcardapio/} + ${itemCardapioDestaque.imagem}" /><br/>
+                        <span th:text="${itemCardapioDestaque.nome}" class="titulo"></span>
+                        <span th:text="${itemCardapioDestaque.descricao}"></span>
+                        <span th:text="'R$' + ${#numbers.formatDecimal(itemCardapioDestaque.preco, 1, 'POINT', 2, 'COMMA')}"></span>
+                        <br/>
+
+                        <form method="GET" th:action="@{/cliente/carrinho/adicionar}">
+                            <input type="hidden" name="itemCardapioId" th:value="${itemCardapioDestaque.id}" />
+                            
+                            <label>
+                                Quantidade<br/>
+                                <select name="quantidade">
+                                    <option th:each="i : ${#numbers.sequence( 1, 50/1)}" th:value="${i}" th:text="${i}"></option>
+                                </select>
+                            </label>
+                            <br/>
+
+                            <label>
+                                Observações:<br/>
+                                <textarea name="observacoes"></textarea>
+                            </label>
+                            <br/>
+
+                            <input type="submit" value="Adicionar ao carrinho" />
+                        </form>
+                    </div>
+                    
+                    <span class="semItens" th:if="${itensCardapioDestaque.size()} == 0">Sem itens em destaque!</span>
+                </div>
+                
+                
+                <div>
+                    <h1>Demais itens</h1>
+                </div>
+
+                <div class="divOpcoesDeComida">
+                    <div class="divItemOpcoesDeComida" th:each="itemCardapioSemDestaque : ${itensCardapioSemDestaque}">
+                        <img th:src="@{/images/itemcardapio/} + ${itemCardapioSemDestaque.imagem}" /><br/>
+                        <span th:text="${itemCardapioSemDestaque.nome}" class="titulo"></span>
+                        <span th:text="${itemCardapioSemDestaque.descricao}"></span>
+                        <span th:text="'R$' + ${#numbers.formatDecimal(itemCardapioSemDestaque.preco, 1, 'POINT', 2, 'COMMA')}"></span>
+                        <br/>
+
+                        <form method="GET" th:action="@{/cliente/carrinho/adicionar}">
+                        	<input type="hidden" name="itemCardapioId" th:value="${itemCardapioSemDestaque.id}" />
+                        
+                            <label>
+                                Quantidade<br/>
+                                <select name="quantidade">
+                                    <option th:each="i : ${#numbers.sequence( 1, 50/1)}" th:value="${i}" th:text="${i}"></option>
+                                </select>
+                            </label>
+                            <br/>
+
+                            <label>
+                                Observações:<br/>
+                                <textarea name="observacoes"></textarea>
+                            </label>
+                            <br/>
+
+                            <input type="submit" value="Adicionar ao carrinho" />
+                        </form>
+                    </div>
+                    
+                    <span class="semItens" th:if="${itensCardapioSemDestaque.size()} == 0">Sem itens!</span>
+                </div>
+                <!-- Opções de comida <== -->
+
+                <a class="button" th:href="@{/cliente/search} + '?searchType=Texto&categoriaId=&texto='">Voltar</a>
+            </div>
+        </div>
+    </body>
+</html>

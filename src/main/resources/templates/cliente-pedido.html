@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" th:with="link=@{/cliente/home}">
+    <body>
+		<div id="clientePedido" layout:fragment="content">
+            <div class="conteiner centralizarConteudo">
+                <!-- ==> Título do pedido -->
+                <div class="divTituloPedido">
+                    <h1>SEU PEDIDO</h1>
+                    <button th:onclick="'location.href=\'' + @{/cliente/carrinho/refazerCarrinho} + '?pedidoId=' + ${pedido.id} + '\''">Refazer pedido</button>
+                </div>
+                <br/>
+                
+                <div class="">
+                    <img th:src="@{/images/logotipo/} + ${pedido.restaurante.logotipo}" />
+                </div>
+                <br/>
+                <!-- Título do pedido <== -->
+                
+                
+                <!-- ==> Status do pedido -->
+                <div class="statusPedido" >
+                    <span th:text="'STATUS: ' + ${pedido.status.descricao.toUpperCase()}"></span>
+                    <br/><br/><br/>
+                </div>
+                <!-- Status do pedido <== -->
+
+
+                <!-- ==> Itens do pedido -->
+                <div class="divItemPedido" th:each="item : ${pedido.itens}">
+                    <span class="titulo" th:text="${item.itemCardapio.nome}"></span>
+                    <span th:text="${item.quantidade} + ' unidade(s)'"></span>
+                    <span th:text="${item.observacoes.isEmpty()} ? '(sem observações)' : '(' + ${item.observacoes} + ')'"></span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(item.calcPrecoTotal(), 1, 'POINT', 2, 'COMMA')}"></span>
+                    
+                    <br/><br/>
+                </div>
+                <!-- Itens do pedido <== -->
+
+
+                <!-- ==> Detalhes do pedido -->
+                <div class="centralizarConteudo">
+                    <span>Taxa de entrega:</span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(pedido.taxaEntrega, 1, 'POINT', 2, 'COMMA')}"></span>
+                </div>
+                <br/><br/>
+
+                <div class="centralizarConteudo">
+                    <span>Total:</span>
+                    <span th:text="'R$' + ${#numbers.formatDecimal(pedido.total, 1, 'POINT', 2, 'COMMA')}"></span>
+                </div>
+                <br/><br/>
+                <!-- Detalhes do pedido <== -->
+
+                <a class="button" th:href="@{/cliente/home}">Voltar</a>
+            </div>
+        </div>
+    </body>
+</html>
